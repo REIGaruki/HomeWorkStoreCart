@@ -4,11 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.store.warehouse.Catalogue;
 import pro.sky.store.warehouse.Product;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path="/order")
@@ -20,11 +19,11 @@ public class CartController {
     }
 
     @GetMapping(path="/add")
-    public ArrayList<Integer> addToCart(@RequestParam(value = "ids") ArrayList<Integer> addedGoods) {
+    public Map<Product, Integer> addToCart(@RequestParam(value = "ids") List<Integer> addedGoods) {
         return cartService.addToCart(addedGoods);
     }
     @GetMapping(path="/get")
-    public HashSet<Product> viewCart() {
+    public Map<Product, Integer> viewCart() {
         return cartService.getCart();
     }
 
