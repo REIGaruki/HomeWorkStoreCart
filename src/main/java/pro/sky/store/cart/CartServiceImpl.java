@@ -5,11 +5,9 @@ import pro.sky.store.warehouse.Product;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @SessionScope
@@ -25,13 +23,16 @@ public class CartServiceImpl implements CartService{
     ));
     @Override
     public Map<Product, Integer> addToCart(List<Integer> addedGoods) {
-        Map<Product, Integer> bag = addedGoods.stream()
-                .collect(Collectors.toMap(
-                        i -> products.get(i),
-                        1,
-                        Integer::sum
-                ));
-        cart.putAll(bag);
+        Map<Product, Integer> bag = new HashMap<>();
+        for (Integer addedGood : addedGoods) {
+            if (!bag.containsKey(products.get(addedGood))) {
+                bag.put(products.get(addedGood), 1);
+                cart.put(products.get(addedGood), 1);
+            } else {
+                bag.merge(products.get(addedGood), 1, Integer::sum);
+                cart.merge(products.get(addedGood), 1, Integer::sum);
+            }
+        }
         return bag;
     }
 
