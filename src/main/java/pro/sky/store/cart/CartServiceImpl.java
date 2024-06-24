@@ -30,9 +30,9 @@ public class CartServiceImpl implements CartService{
                 Integer::sum
         ));
         cart = Stream.concat(bag.entrySet().stream(), cart.entrySet().stream()).collect(Collectors.toMap(
-                entry -> entry.getKey(),
-                entry -> entry.getValue(),
-                (a, b) -> Integer.sum(a, b)
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                Integer::sum
         ));
         return bag;
     }
