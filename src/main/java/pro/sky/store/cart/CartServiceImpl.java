@@ -25,7 +25,7 @@ public class CartServiceImpl implements CartService{
     public Map<Product, Integer> addToCart(List<Integer> addedGoods) {
         Map<Product, Integer> bag = new HashMap<>();
         for (Integer addedGood : addedGoods) {
-            if (!bag.containsKey(products.get(addedGood))) {
+            if (!cart.containsKey(products.get(addedGood))) {
                 bag.put(products.get(addedGood), 1);
                 cart.put(products.get(addedGood), 1);
             } else {
