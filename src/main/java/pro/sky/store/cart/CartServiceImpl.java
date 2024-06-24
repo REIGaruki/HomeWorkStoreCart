@@ -6,6 +6,7 @@ import pro.sky.store.warehouse.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,17 +23,17 @@ public class CartServiceImpl implements CartService{
             new Product("Pear")
     ));
     @Override
-    public Map<Product, Integer> addToCart(List<Integer> addedGoods) {
-        Map<Product, Integer> bag = new HashMap<>();
-        for (Integer addedGood : addedGoods) {
-            if (!cart.containsKey(products.get(addedGood))) {
-                bag.put(products.get(addedGood), 1);
-                cart.put(products.get(addedGood), 1);
-            } else {
-                bag.merge(products.get(addedGood), 1, Integer::sum);
-                cart.merge(products.get(addedGood), 1, Integer::sum);
-            }
-        }
+    public Map<Product, Integer> addToCart(List<Integer> ids) {
+        Map<Product, Integer> bag = ids.stream().collect(Collectors.toMap(
+                products::get,
+                i -> 1,
+                Integer::sum
+        ));
+        cart = Stream.concat(bag.entrySet().stream(), cart.entrySet().stream()).collect(Collectors.toMap(
+                entry -> entry.getKey(),
+                entry -> entry.getValue(),
+                (a, b) -> Integer.sum(a, b)
+        ));
         return bag;
     }
 
