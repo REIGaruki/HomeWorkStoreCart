@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Repository
-public class Catalogue {
-    private static ArrayList<Product> goods = new ArrayList<Product>(Arrays.asList(
-            new Product("Apple"),
-            new Product("Orange"),
-            new Product("Lemon"),
-            new Product("Kiwi"),
-            new Product("Mango"),
-            new Product("Pear")
+public final class Catalogue {
+    private final ArrayList<Product> goods = new ArrayList<Product>(Arrays.asList(
+            new Product("Apple", 300),
+            new Product("Orange", 200),
+            new Product("Lemon", 200),
+            new Product("Kiwi", 200),
+            new Product("Mango",400),
+            new Product("Pear",250)
     ));
 
 
-    public static ArrayList<Product> getGoods() {
+    public ArrayList<Product> getGoods() {
         return goods;
     }
 }

@@ -8,6 +8,7 @@ import java.util.HashSet;
 public interface CartService {
     ArrayList<Integer> addToCart(ArrayList<Integer> addedGoods);
 
-    HashSet<Product> viewCart();
+    HashSet<Product> getCart();
 
+    ArrayList<Product> getCatalogue();
 }

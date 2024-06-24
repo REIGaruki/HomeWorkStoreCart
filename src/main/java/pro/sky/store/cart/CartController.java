@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.store.warehouse.Catalogue;
 import pro.sky.store.warehouse.Product;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 @RestController
 @RequestMapping(path="/order")
 public class CartController {
-    private final CartService cartService;
+    private CartService cartService;
 
     public CartController(CartService cartService) {
         this.cartService = cartService;
@@ -24,6 +25,7 @@ public class CartController {
     }
     @GetMapping(path="/get")
     public HashSet<Product> viewCart() {
-        return cartService.viewCart();
+        return cartService.getCart();
     }
+
 }
